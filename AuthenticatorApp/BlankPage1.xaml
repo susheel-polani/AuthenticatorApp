@@ -1,0 +1,19 @@
+﻿<Page
+    x:Class="AuthenticatorApp.BlankPage1"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:AuthenticatorApp"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <TextBox HorizontalAlignment="Center" Margin="0,270,0,0" TextWrapping="Wrap" Text="Welcome Susheel!" VerticalAlignment="Top" Height="60" Width="230" FontSize="22" FontWeight="Bold"/>
+        <TextBox HorizontalAlignment="Center" Margin="0,382,0,0" TextWrapping="Wrap" Text="List of Usernames for Google.com" VerticalAlignment="Top" TextChanged="TextBox_TextChanged" FontWeight="Bold" FontSize="16" Height="42"/>
+        <Button Content="susheel98" Margin="0,456,0,0" VerticalAlignment="Top" HorizontalAlignment="Center"/>
+        <Button Content="thegamerhub" Margin="0,540,0,0" VerticalAlignment="Top" HorizontalAlignment="Center"/>
+        <Button Content="passwordless-team" Margin="0,618,0,0" VerticalAlignment="Top" HorizontalAlignment="Center"/>
+
+    </Grid>
+</Page>
