@@ -12,6 +12,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Microsoft.Data.Sqlite;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -26,10 +27,19 @@ namespace AuthenticatorApp
         {
             this.InitializeComponent();
         }
-
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void getUsernames(object sender, RoutedEventArgs e)
         {
+            DataAccess.AddData("susheel98");
+            DataAccess.AddData("passwordless-team");
+            DataAccess.AddData("thegamer");
 
+            List<String> rows = DataAccess.GetData();
+            String usernames="";
+            foreach (String row in rows)
+            {
+                usernames = usernames + row + "\n";
+            }
+            usernamesTextBox.Text = usernames;
         }
     }
 }

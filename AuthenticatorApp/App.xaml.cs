@@ -30,6 +30,9 @@ namespace AuthenticatorApp
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+            DataAccess.DropTable();
+
+            DataAccess.InitializeDatabase();
         }
 
         /// <summary>
