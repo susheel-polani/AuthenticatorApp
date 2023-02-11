@@ -20,9 +20,7 @@ namespace AuthenticatorApp
             {
                 db.Open();
 
-                String tableCommand = "CREATE TABLE IF NOT " +
-                    "EXISTS MyTable (Primary_Key INTEGER PRIMARY KEY, " +
-                    "Text_Entry NVARCHAR(2048) NULL)";
+                String tableCommand = "CREATE TABLE IF NOT " + "EXISTS MyTable (Primary_Key INTEGER PRIMARY KEY, " + "Domain NVARCHAR(2048) NOT NULL," + "Username NVARCHAR(2048) NOT NULL," + "PrivateKey NVARCHAR(2048) NOT NULL UNIQUE)";
 
                 SqliteCommand createTable = new SqliteCommand(tableCommand, db);
 
@@ -30,7 +28,7 @@ namespace AuthenticatorApp
             }
         }
 
-        public static void AddData(string inputText)
+        public static void AddData(string inputText1, string inputText2, string inputText3)
         {
             string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "passwordless-KeyPairs.db");
             using (SqliteConnection db =
@@ -42,14 +40,16 @@ namespace AuthenticatorApp
                 insertCommand.Connection = db;
 
                 // Use parameterized query to prevent SQL injection attacks
-                insertCommand.CommandText = "INSERT INTO MyTable VALUES (NULL, @Entry);";
-                insertCommand.Parameters.AddWithValue("@Entry", inputText);
+                insertCommand.CommandText = "INSERT INTO MyTable VALUES (NULL, @Entry1, @Entry2, @Entry3);";
+                insertCommand.Parameters.AddWithValue("@Entry1", inputText1);
+                insertCommand.Parameters.AddWithValue("@Entry2", inputText2);
+                insertCommand.Parameters.AddWithValue("@Entry3", inputText3);
 
                 insertCommand.ExecuteReader();
             }
 
         }
-        public static List<String> GetData()
+        public static List<String> GetData(string inputText1, string inputText2)
         {
             List<String> entries = new List<string>();
 
@@ -59,8 +59,9 @@ namespace AuthenticatorApp
             {
                 db.Open();
 
-                SqliteCommand selectCommand = new SqliteCommand
-                    ("SELECT Text_Entry from MyTable", db);
+                SqliteCommand selectCommand = new SqliteCommand("SELECT PrivateKey from MyTable where Domain = @Entry1 and Username = @Entry2", db);
+                selectCommand.Parameters.AddWithValue("@Entry1", inputText1);
+                selectCommand.Parameters.AddWithValue("@Entry2", inputText2);
 
                 SqliteDataReader query = selectCommand.ExecuteReader();
 

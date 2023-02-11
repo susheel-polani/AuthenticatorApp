@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -35,6 +36,7 @@ namespace AuthenticatorApp
             {
                 // Check the availability of fingerprint authentication.
                 var ucvAvailability = await Windows.Security.Credentials.UI.UserConsentVerifier.CheckAvailabilityAsync();
+                Debug.WriteLine(ucvAvailability);
 
                 switch (ucvAvailability)
                 {
@@ -63,6 +65,7 @@ namespace AuthenticatorApp
             {
                 returnMessage = "Fingerprint authentication availability check failed: " + ex.ToString();
             }
+
 
             if(returnMessage == "Fingerprint verification is available.")
             {
@@ -125,6 +128,64 @@ namespace AuthenticatorApp
                 errorBox.Visibility = Visibility.Visible;
             }
         }
+
+
+        private async void TestAuthentication(object sender, RoutedEventArgs e)
+        {
+            string returnVerification;
+
+            string userMessage = "Authentication needed to access the Domain specific Key pairs.";
+
+            try
+            {
+                // Request the logged on user's consent via fingerprint swipe.
+                var consentResult = await Windows.Security.Credentials.UI.UserConsentVerifier.RequestVerificationAsync(userMessage);
+                Debug.WriteLine(consentResult);
+                switch (consentResult)
+                {
+                    case Windows.Security.Credentials.UI.UserConsentVerificationResult.Verified:
+                        returnVerification = "Fingerprint verified.";
+                        break;
+                    case Windows.Security.Credentials.UI.UserConsentVerificationResult.DeviceBusy:
+                        returnVerification = "Biometric device is busy.";
+                        break;
+                    case Windows.Security.Credentials.UI.UserConsentVerificationResult.DeviceNotPresent:
+                        returnVerification = "No biometric device found.";
+                        break;
+                    case Windows.Security.Credentials.UI.UserConsentVerificationResult.DisabledByPolicy:
+                        returnVerification = "Biometric verification is disabled by policy.";
+                        break;
+                    case Windows.Security.Credentials.UI.UserConsentVerificationResult.NotConfiguredForUser:
+                        returnVerification = "The user has no fingerprints registered. Please add a fingerprint to the " +
+                                        "fingerprint database and try again.";
+                        break;
+                    case Windows.Security.Credentials.UI.UserConsentVerificationResult.RetriesExhausted:
+                        returnVerification = "There have been too many failed attempts. Fingerprint authentication canceled.";
+                        break;
+                    case Windows.Security.Credentials.UI.UserConsentVerificationResult.Canceled:
+                        returnVerification = "Fingerprint authentication canceled.";
+                        break;
+                    default:
+                        returnVerification = "Fingerprint authentication is currently unavailable.";
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                returnVerification = "Fingerprint authentication failed: " + ex.ToString();
+            }
+
+            if (returnVerification == "Fingerprint verified.")
+            {
+                this.Frame.Navigate(typeof(BlankPage1));
+            }
+            else
+            {
+                errorBox.Text = "Authentication failed! Try Again!";
+                errorBox.Visibility = Visibility.Visible;
+            }
+        }
+
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {

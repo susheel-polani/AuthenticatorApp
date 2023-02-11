@@ -12,6 +12,7 @@
         <TextBox HorizontalAlignment="Center" Margin="0,270,0,0" TextWrapping="Wrap" Text="Welcome Susheel!" VerticalAlignment="Top" Height="60" Width="230" FontSize="22" FontWeight="Bold"/>
         <TextBox HorizontalAlignment="Center" Margin="0,382,0,0" TextWrapping="Wrap" Text="List of Usernames for Google.com" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" Height="42"/>
         <Button Content="Get Usernames" Margin="715,559,0,0" VerticalAlignment="Top" Click="getUsernames" RenderTransformOrigin="-0.273,0.386"/>
+        <Button Content="Write file" Margin="300,200,0,0" VerticalAlignment="Top" Click="writeFile" RenderTransformOrigin="-0.273,0.386"/>
         <TextBlock x:Name="usernamesTextBox" HorizontalAlignment="Left" Margin="925,540,0,0" TextWrapping="Wrap" Text="Click the button to fetch usernames" VerticalAlignment="Top" Height="150" Width="177"/>
 
     </Grid>

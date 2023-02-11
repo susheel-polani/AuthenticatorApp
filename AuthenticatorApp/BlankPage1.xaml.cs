@@ -26,20 +26,25 @@ namespace AuthenticatorApp
         public BlankPage1()
         {
             this.InitializeComponent();
+            DataAccess.AddData("facebook.com", "username1", "key1");
+            DataAccess.AddData("google.com", "username2", "key2");
+            DataAccess.AddData("linkedin.com", "username3", "key3");
         }
         private void getUsernames(object sender, RoutedEventArgs e)
         {
-            DataAccess.AddData("susheel98");
-            DataAccess.AddData("passwordless-team");
-            DataAccess.AddData("thegamer");
 
-            List<String> rows = DataAccess.GetData();
+            List<String> rows = DataAccess.GetData("google.com", "username2");
             String usernames="";
             foreach (String row in rows)
             {
                 usernames = usernames + row + "\n";
             }
             usernamesTextBox.Text = usernames;
+        }
+
+        private void writeFile(object sender, RoutedEventArgs e)
+        {
+            FileSystemAccess.WriteFile();
         }
     }
 }
