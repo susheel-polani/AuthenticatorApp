@@ -33,6 +33,8 @@ namespace AuthenticatorApp
             DataAccess.DropTable();
 
             DataAccess.InitializeDatabase();
+            RSAContainers.GenKey_SaveInContainer("MyKey");
+            HTTPServer.InitiateServer();
         }
 
         /// <summary>

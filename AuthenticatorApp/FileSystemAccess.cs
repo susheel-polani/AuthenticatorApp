@@ -25,7 +25,7 @@ namespace AuthenticatorApp
                 // Application now has read/write access to all contents in the picked folder
                 // (including other sub-folder contents)
                 Windows.Storage.AccessCache.StorageApplicationPermissions.
-                FutureAccessList.AddOrReplace("PickedFolderToken", storageFolder);
+                FutureAccessList.AddOrReplace("PickedFolderT    oken", storageFolder);
                 Windows.Storage.StorageFile sampleFile = await storageFolder.CreateFileAsync("sample.txt", Windows.Storage.CreationCollisionOption.ReplaceExisting);
             }
             else
