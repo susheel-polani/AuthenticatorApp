@@ -10,7 +10,7 @@
 
     <Grid>
         <TextBox HorizontalAlignment="Center" Margin="0,310,0,0" TextWrapping="Wrap" Text="Welcome to the Authenticator App!" VerticalAlignment="Top" Height="36" Width="277" FontWeight="Bold"/>
-        <Button Content="LOG IN" Margin="0,440,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.21,0" HorizontalAlignment="Center" Click="TriggerWindowsAuthentication"/>
+        <Button Content="LOG IN" Margin="0,440,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.21,0" HorizontalAlignment="Center" Click="appLogin"/>
         <TextBox x:Name="errorBox" HorizontalAlignment="Center" Margin="0,540,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" TextChanged="TextBox_TextChanged" Visibility="Collapsed"/>
 
     </Grid>
