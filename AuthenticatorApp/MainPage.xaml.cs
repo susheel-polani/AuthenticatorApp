@@ -41,8 +41,8 @@ namespace AuthenticatorApp
         private async void isWindowsAuthAvailable() {
 
             WindowsAuthData windowsAuthData = await AppAuthenticationService.isWindowsAuthAvailable();
-            errorBox.Text = windowsAuthData.message;
-            errorBox.Visibility = Visibility.Visible;
+            messageBox.Text = windowsAuthData.message;
+           
         }
 
         
@@ -55,13 +55,11 @@ namespace AuthenticatorApp
                     this.Frame.Navigate(typeof(BlankPage1));
                 }
                 else {
-                    errorBox.Text = windowsAuthVerification.message;
-                    errorBox.Visibility = Visibility.Visible;
+                    messageBox.Text = windowsAuthVerification.message;
                 }
             }
             else {
-                errorBox.Text = windowsAuthAvailability.message;
-                errorBox.Visibility = Visibility.Visible;
+                messageBox.Text = windowsAuthAvailability.message;
 
             }
         }
