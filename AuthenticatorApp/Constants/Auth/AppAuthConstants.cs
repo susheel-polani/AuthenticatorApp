@@ -37,7 +37,7 @@ namespace AuthenticatorApp.Constants.Auth
 
             WindowsAuthData windowsAuthData = new WindowsAuthData(true, "");
 
-            if (status != 0) {
+            if (status != UserConsentVerifierAvailability.Available) {
                 windowsAuthData.flag = false;
             }
             
@@ -51,7 +51,7 @@ namespace AuthenticatorApp.Constants.Auth
 
             WindowsAuthData windowsAuthData = new WindowsAuthData(true, "");
 
-            if (status != 0)
+            if (status != UserConsentVerificationResult.Verified)
             {
                 windowsAuthData.flag = false;
             }
