@@ -6,12 +6,160 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="#130041">
 
-    <Grid>
-        <TextBox HorizontalAlignment="Center" Margin="0,310,0,0" TextWrapping="Wrap" Text="Welcome to the Authenticator App!" VerticalAlignment="Top" Height="36" Width="277" FontWeight="Bold"/>
-        <Button Content="LOG IN" Margin="0,440,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.21,0" HorizontalAlignment="Center" Click="TriggerWindowsAuthentication"/>
-        <TextBox x:Name="errorBox" HorizontalAlignment="Center" Margin="0,540,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" TextChanged="TextBox_TextChanged" Visibility="Collapsed"/>
+    <Border CornerRadius="20">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="200"/>
+                <RowDefinition Height="300" />
+                <RowDefinition Height="100" />
+                <RowDefinition Height="200" />
+            </Grid.RowDefinitions>
 
-    </Grid>
+            <!-- START: TITLE -->
+            <TextBlock 
+                Text="Asym Auth Client" 
+                VerticalAlignment="Center" 
+                HorizontalAlignment="Left" 
+                FontSize="22" 
+                Margin="20,0,0,0" 
+            />
+            <!-- END: TITLE-->
+
+            <!--START: ACTION BUTTONS -->
+            <StackPanel Orientation="Horizontal" Grid.Row="1">
+
+                <!-- START : CHANGE AUTHENTICATION BUTTON -->
+                <Border 
+                    Height="150"
+                    Width="300"
+                    CornerRadius="10"
+                    Margin="20,0,0,0"
+                    >
+                    <Button                         
+                        VerticalAlignment="Stretch"
+                        BorderThickness="0"
+                        CornerRadius="10" 
+                        HorizontalAlignment="Stretch"
+                    >
+                        <StackPanel Padding="0, 20, 0, 0">
+                            <TextBlock Text="Change Authentication method" FontSize="27" TextWrapping="Wrap"/>
+                            <StackPanel Orientation="Horizontal" Padding="0, 20, 0 , 0">
+                                <TextBlock Text="Current Method : " Foreground="#B69BFB" />
+                                <TextBlock Text="Windows Hello"  FontWeight="Bold" Foreground="#B69BFB"/>
+                            </StackPanel>
+
+                        </StackPanel>
+
+
+                        <Button.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
+                                <GradientStop Color="#594BD9"  Offset="0.0"/>
+                                <GradientStop Color="#9951BE"  Offset="1"/>
+                            </LinearGradientBrush>
+                        </Button.Background>
+                    </Button>
+
+
+                </Border>
+                <!-- END : CHANGE AUTHENTICATION BUTTON -->
+
+                <!-- START : CHANGE CURRENT PASSWORD BUTTON -->
+                <Border 
+                    Height="150"
+                    Width="300"
+                    CornerRadius="10"
+                    Margin="20,0,0,0"
+                    >
+                    <Button                                           
+                        VerticalAlignment="Stretch"
+                        BorderThickness="0"
+                        CornerRadius="10" 
+                        HorizontalAlignment="Stretch"
+                        IsEnabled="False"
+                    >
+                        <TextBlock Text="Change Current Password" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-45,-19,0,0" FontSize="27" TextWrapping="Wrap" Width="224"/>
+
+
+
+                        <Button.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
+                                <GradientStop Color="#9951BE"  Offset="0.0"/>
+                                <GradientStop Color="#594BD9"  Offset="1"/>
+                            </LinearGradientBrush>
+                        </Button.Background>
+                    </Button>
+
+
+                </Border>
+                <!-- END : CHANGE CURRENT PASSWORD BUTTON -->
+
+                <!-- START : EXPORT KEYS BUTTON -->
+                <Border 
+                    Height="150"
+                    Width="300"
+                    CornerRadius="10"
+                    Margin="20,0,0,0"
+                    >
+                    <Button                                           
+                        VerticalAlignment="Stretch"
+                        BorderThickness="0"
+                        CornerRadius="10" 
+                        HorizontalAlignment="Stretch"
+                    >
+                        <TextBlock Text="Export Keys" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-49,-45,0,0" FontSize="27" TextWrapping="Wrap" Width="224"/>
+
+                        <Button.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
+                                <GradientStop Color="#594BD9"  Offset="0.0"/>
+                                <GradientStop Color="#9951BE"  Offset="1"/>
+                            </LinearGradientBrush>
+                        </Button.Background>
+                    </Button>
+
+
+                </Border>
+                <!-- END :EXPORT KEYS BUTTON -->
+
+            </StackPanel>
+            <!--END: ACTION BUTTONS -->
+
+            <!-- START: MESSAGE BOX -->
+            <Border Grid.Row="2" Height="100" Width="600" CornerRadius="20" Background="#281A56" >
+                <TextBlock Text="Welcome !" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" FontStyle="Italic" Foreground="#44347E"/>
+            </Border>
+            <!-- END: MESSAGE BOX-->
+
+            <!-- START: DEBUG Content -->
+            <TextBlock Grid.Row="3" Text="Debug Content" VerticalAlignment="Center" FontSize="30" Margin="20, 0"/>
+
+            <Grid Grid.Row="4">
+                <Grid.ColumnDefinitions >
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <!-- START: DEBUG ACTION BUTTONS-->
+                <StackPanel Orientation="Horizontal" Padding="20">
+                    <Button Content="Log In" CornerRadius="20" Padding="20" Click="appLogin" />
+                </StackPanel>
+
+                <!-- START: MESSAGE BOX -->
+                <Border Grid.Column="2" Height="100" Width="600" CornerRadius="20" Background="#281A56" >
+                    <TextBlock x:Name="messageBox" Text="Welcome !" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" FontStyle="Italic" Foreground="#FFF"/>
+                </Border>
+                <!-- END: MESSAGE BOX-->
+                <!-- END: DEBUG ACTION BUTTONS-->
+
+
+            </Grid>
+            <!-- END: DEBUG Content-->
+
+
+        </Grid>
+    </Border>
+
+
 </Page>
