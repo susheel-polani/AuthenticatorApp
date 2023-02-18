@@ -1,5 +1,7 @@
-﻿using System;
+﻿using AuthenticatorApp.Services.Keys;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -33,6 +35,12 @@ namespace AuthenticatorApp
             DataAccess.DropTable();
 
             DataAccess.InitializeDatabase();
+
+            RSAKeyServices.GenerateKeyInContainer("test");
+            List<string> keys = new List<string>();
+            keys = RSAKeyServices.GetPublicKeyFromContainer("test");
+            Debug.WriteLine("Modulous:" + keys[0]);
+            Debug.WriteLine("Exponent:" + keys[1]);
         }
 
         /// <summary>

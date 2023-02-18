@@ -131,6 +131,7 @@
     <Compile Include="Models\WindowsAuthData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Auth\AppAuthenticationService.cs" />
+    <Compile Include="Services\Keys\RSAKeyServices.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
