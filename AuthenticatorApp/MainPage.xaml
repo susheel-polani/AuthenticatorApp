@@ -108,6 +108,7 @@
                         BorderThickness="0"
                         CornerRadius="10" 
                         HorizontalAlignment="Stretch"
+                        Click="exportKeys"
                     >
                         <TextBlock Text="Export Keys" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-49,-45,0,0" FontSize="27" TextWrapping="Wrap" Width="224"/>
 

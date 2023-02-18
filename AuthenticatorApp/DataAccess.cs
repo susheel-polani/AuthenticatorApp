@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Data.Sqlite;
 using Windows.Storage;
 using System.IO;
+using System.Diagnostics;
 
 namespace AuthenticatorApp
 {
@@ -14,6 +15,7 @@ namespace AuthenticatorApp
         public async static void InitializeDatabase()
         {
             await ApplicationData.Current.LocalFolder.CreateFileAsync("passwordless-KeyPairs.db", CreationCollisionOption.OpenIfExists);
+            Debug.WriteLine(ApplicationData.Current.LocalFolder.Path);
             string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "passwordless-KeyPairs.db");
             using (SqliteConnection db =
                new SqliteConnection($"Filename={dbpath}"))

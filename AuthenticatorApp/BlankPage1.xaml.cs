@@ -13,6 +13,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Microsoft.Data.Sqlite;
+using AuthenticatorApp.Services.Encryption;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -40,6 +41,11 @@ namespace AuthenticatorApp
                 usernames = usernames + row + "\n";
             }
             usernamesTextBox.Text = usernames;
+        }
+
+        private void encDec(object sender, RoutedEventArgs e) 
+        {
+            FileEncryptionService.ExportKeys();
         }
     }
 }

@@ -17,6 +17,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 using AuthenticatorApp.Models;
+using AuthenticatorApp.Services.Encryption;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -67,6 +68,11 @@ namespace AuthenticatorApp
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
 
+        }
+
+        private void exportKeys(object sender, RoutedEventArgs e)
+        {
+            FileEncryptionService.ExportKeys();
         }
     }
 }
