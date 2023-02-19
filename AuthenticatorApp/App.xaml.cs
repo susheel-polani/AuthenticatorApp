@@ -1,4 +1,5 @@
-﻿using AuthenticatorApp.Services.Keys;
+﻿using AuthenticatorApp.Services.HTTPServer;
+using AuthenticatorApp.Services.Keys;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -35,12 +36,6 @@ namespace AuthenticatorApp
             DataAccess.DropTable();
 
             DataAccess.InitializeDatabase();
-
-            RSAKeyServices.GenerateKeyInContainer("test");
-            List<string> keys = new List<string>();
-            keys = RSAKeyServices.GetPublicKeyFromContainer("test");
-            Debug.WriteLine("Modulous:" + keys[0]);
-            Debug.WriteLine("Exponent:" + keys[1]);
         }
 
         /// <summary>

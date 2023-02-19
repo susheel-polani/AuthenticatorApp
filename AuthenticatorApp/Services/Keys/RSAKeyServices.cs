@@ -4,69 +4,78 @@ using System.Diagnostics;
 using System.Linq;
 using System.Reflection.Metadata;
 using System.Security.Cryptography;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using AuthenticatorApp.Models;
+using Newtonsoft.Json;
 
 namespace AuthenticatorApp.Services.Keys
 {
     internal class RSAKeyServices
     {
-        /*public static string ToXmlString(RSA rsa, bool includePrivateParameters)
+        public class JSONKey
         {
-            RSAParameters parameters = rsa.ExportParameters(includePrivateParameters);
-
-            return string.Format("<RSAKeyValue><Modulus>{0}</Modulus><Exponent>{1}</Exponent><P>{2}</P><Q>{3}</Q><DP>{4}</DP><DQ>{5}</DQ><InverseQ>{6}</InverseQ><D>{7}</D></RSAKeyValue>",
-                  parameters.Modulus != null ? Convert.ToBase64String(parameters.Modulus) : null,
-                  parameters.Exponent != null ? Convert.ToBase64String(parameters.Exponent) : null,
-                  parameters.P != null ? Convert.ToBase64String(parameters.P) : null,
-                  parameters.Q != null ? Convert.ToBase64String(parameters.Q) : null,
-                  parameters.DP != null ? Convert.ToBase64String(parameters.DP) : null,
-                  parameters.DQ != null ? Convert.ToBase64String(parameters.DQ) : null,
-                  parameters.InverseQ != null ? Convert.ToBase64String(parameters.InverseQ) : null,
-                  parameters.D != null ? Convert.ToBase64String(parameters.D) : null);
-        }*/
-        public static List<string> getPubKeyParameters(RSA rsa)
+            public string modulus { get; set; }
+            public string exponent { get; set; }
+            public string p {  get; set; }
+            public string q { get; set; }
+            public string dp { get; set; }
+            public string dq { get; set; }
+            public string inverseq { get; set; }
+            public string d { get; set; }
+        }
+        public static string getPubKeyParameters(RSA rsa)
         {
             RSAParameters pubkeyParameters = rsa.ExportParameters(false);
-            List<string> pubkey = new List<string>();
 
-            pubkey.Add(pubkeyParameters.Modulus != null ? Convert.ToBase64String(pubkeyParameters.Modulus) : null);
-            pubkey.Add(pubkeyParameters.Exponent != null ? Convert.ToBase64String(pubkeyParameters.Exponent) : null);
-            return pubkey;
-        }
-        public static void GenerateKeyInContainer(string containerName)
-        {
-            var parameters = new CspParameters
+            JSONKey publicKey = new JSONKey()
             {
-                KeyContainerName = containerName
+                modulus = (pubkeyParameters.Modulus != null ? Convert.ToBase64String(pubkeyParameters.Modulus) : null),
+                exponent = (pubkeyParameters.Exponent != null ? Convert.ToBase64String(pubkeyParameters.Exponent) : null)
             };
-            var rsa = new RSACryptoServiceProvider(parameters);
-            // TODO: return public key
+
+            string stringjson = JsonConvert.SerializeObject(publicKey);
+
+            return stringjson;
         }
 
-        public static List<string> GetPublicKeyFromContainer(string containerName)
+        public static string getPriKeyParameters(RSA rsa)
         {
-            // TODO : Write a utility function for rsa object.
-            var parameters = new CspParameters
-            {
-                KeyContainerName = containerName
-            };
-            var rsa = new RSACryptoServiceProvider(parameters);
+            RSAParameters prikeyParameters = rsa.ExportParameters(true);
 
+            JSONKey privateKey = new JSONKey()
+            {
+                modulus = (prikeyParameters.Modulus != null ? Convert.ToBase64String(prikeyParameters.Modulus) : null),
+                exponent = (prikeyParameters.Exponent != null ? Convert.ToBase64String(prikeyParameters.Exponent) : null),
+                p = prikeyParameters.P != null ? Convert.ToBase64String(prikeyParameters.P) : null,
+                q = prikeyParameters.Q != null ? Convert.ToBase64String(prikeyParameters.Q) : null,
+                dp = prikeyParameters.DP != null ? Convert.ToBase64String(prikeyParameters.DP) : null,
+                dq = prikeyParameters.DQ != null ? Convert.ToBase64String(prikeyParameters.DQ) : null,
+                inverseq = prikeyParameters.InverseQ != null ? Convert.ToBase64String(prikeyParameters.InverseQ) : null,
+                d = prikeyParameters.D != null ? Convert.ToBase64String(prikeyParameters.D) : null
+
+            };
+
+            string stringjson = JsonConvert.SerializeObject(privateKey);
+
+            return stringjson;
+        }
+        public static string GenerateKeyInContainer(string containerName)
+        {
+            // fetchContainer function will create a container if it does not exist or will fetch the existing container.
+            var rsa = RSAKeyContainer.fetchContainer(containerName);
             return getPubKeyParameters(rsa);
         }
 
+        public static string GetPrivateKeyFromContainer(string containerName)
+        {
+            var rsa = RSAKeyContainer.fetchContainer(containerName);
+            return getPriKeyParameters(rsa);
+        }
         public static void DeleteKeyFromContainer(string containerName)
         {
-            var parameters = new CspParameters
-            {
-                KeyContainerName = containerName
-            };
-            var rsa = new RSACryptoServiceProvider(parameters)
-            {
-                PersistKeyInCsp = false
-            };
-
+            var rsa = RSAKeyContainer.deleteContainer(containerName);
             rsa.Clear();
         }
     }
